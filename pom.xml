@@ -20,5 +20,12 @@
             <artifactId>spring-context</artifactId>
             <version>5.3.34</version>
         </dependency>
+
+        <!-- AOP 기능 추가 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>5.3.34</version>
+        </dependency>
     </dependencies>
 </project>
