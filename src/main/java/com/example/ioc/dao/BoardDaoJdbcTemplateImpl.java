@@ -8,11 +8,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("boardDao")
-public class BoardDao implements BoardDaoInterface {
+@Repository("boardDaoJdbcTemplateImpl")
+public class BoardDaoJdbcTemplateImpl implements BoardDaoInterface {
+
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public BoardDaoJdbcTemplateImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<Board> findAll() {

@@ -1,9 +1,9 @@
-// src/main/java/com/example/ioc/controller/BoardController.java
 package com.example.ioc.controller;
 
-import com.example.ioc.dao.BoardDao;
+import com.example.ioc.dao.BoardDaoInterface;
 import com.example.ioc.vo.Board;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,8 @@ import java.util.List;
 public class BoardController {
 
     @Autowired
-    private BoardDao boardDao;
+    @Qualifier("boardDaoJdbcTemplateImpl") // 여기에서 구현체 선택 가능
+    private BoardDaoInterface boardDao;
 
     @GetMapping("/list")
     public String list(Model model) {

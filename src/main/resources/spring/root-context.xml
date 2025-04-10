@@ -14,9 +14,13 @@
     <!-- DataSource -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/liquidstore_db"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/boarddb"/>
         <property name="username" value="root"/>
         <property name="password" value="tmvkdlejaos12@"/>
+    </bean>
+
+    <bean id="boardDAO" class="com.example.ioc.dao.BoardDaoJdbcTemplateImpl">
+        <constructor-arg ref="jdbcTemplate" />
     </bean>
 
     <!-- JdbcTemplate -->

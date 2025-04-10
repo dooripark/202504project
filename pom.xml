@@ -56,11 +56,17 @@
             <version>8.0.33</version>
         </dependency>
 
-        <!-- ✅ Spring Core, Context, Beans (이미 있을 수도 있음) -->
+        <!-- ✅ Spring Core, Context, Beans -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>5.3.32</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 </project>
