@@ -17,6 +17,9 @@
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
 
+    <!-- 정적 리소스(html, js, css 등)를 DispatcherServlet이 아닌 서버가 직접 처리하도록 설정 -->
+    <resources mapping="/**" location="/" />
+
     <!-- Spring MVC 기본 설정 -->
     <annotation-driven />
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON 테스트</title>
+</head>
+<body>
+<h2>JSON POST 테스트</h2>
+<button onclick="sendJson()">전송</button>
+
+<script>
+        function sendJson() {
+            fetch('/json-demo/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: 3,
+                    name: "장보고",
+                    email: "jang@test.com"
+                })
+            })
+            .then(response => response.text())
+            .then(result => alert("서버 응답: " + result))
+            .catch(error => console.error("에러 발생", error));
+        }
+    </script>
+</body>
+</html>
