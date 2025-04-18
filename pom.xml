@@ -14,7 +14,7 @@
     </properties>
 
     <dependencies>
-        <!-- Spring Context: IoC/DI 기능을 제공하는 핵심 라이브러리 -->
+        <!-- ✅ Spring Core, Context, Beans -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -28,7 +28,7 @@
             <version>5.3.34</version>
         </dependency>
 
-        <!-- AOP 기능 추가 -->
+        <!-- ✅ AOP -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
@@ -39,41 +39,49 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>5.3.32</version> <!-- 현재 프로젝트에 맞는 버전 사용 -->
+            <version>5.3.34</version>
         </dependency>
 
-        <!-- ✅ commons-dbcp2: DataSource 사용 시 필요 -->
+        <!-- ✅ commons-dbcp2: DBCP 커넥션 풀 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
             <version>2.9.0</version>
         </dependency>
 
-        <!-- ✅ MySQL JDBC Driver -->
+        <!-- ✅ MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
 
-        <!-- ✅ Spring Core, Context, Beans -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.3.32</version>
-        </dependency>
-
+        <!-- ✅ JSTL -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
 
-        <!-- JSON 변환을 위한 Jackson -->
+        <!-- ✅ JSON 변환 (REST 응답) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.16.1</version>
+        </dependency>
+
+        <!-- ✅ MyBatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.15</version>
+        </dependency>
+
+        <!-- ✅ MyBatis-Spring 연동 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>2.0.7</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>REST 게시글 목록</title>
+  <style>
+        table {
+            width: 500px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+<h2>게시글 목록</h2>
+<table id="boardTable">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>제목</th>
+    <th>내용</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- JavaScript로 게시글 삽입 -->
+  </tbody>
+</table>
+
+<script>
+    fetch('/api/restboard')
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.querySelector("#boardTable tbody");
+            data.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.title}</td>
+                    <td>${item.content}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error("불러오기 실패:", error);
+            alert("게시글 목록을 불러오는데 실패했습니다.");
+        });
+</script>
+</body>
+</html>

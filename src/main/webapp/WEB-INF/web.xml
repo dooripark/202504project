@@ -12,6 +12,7 @@
         <param-value>classpath:spring/root-context.xml</param-value>
     </context-param>
 
+    <!-- Spring 컨텍스트 로딩 -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -51,6 +52,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- 기본 시작 페이지 -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

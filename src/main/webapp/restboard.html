@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>REST 게시글 등록</title>
+</head>
+<body>
+<h2>REST 게시글 등록</h2>
+<input type="text" id="title" placeholder="제목 입력"><br><br>
+<textarea id="content" placeholder="내용 입력"></textarea><br><br>
+<button onclick="submitBoard()">등록하기</button>
+
+<script>
+    function submitBoard() {
+      const data = {
+        title: document.getElementById('title').value,
+        content: document.getElementById('content').value
+      };
+
+      fetch('/api/restboard', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.text())
+      .then(result => {
+        alert(result);                    // ✅ "게시글 등록 완료!" 알럿 띄우고
+        window.location.href = "/api/restboard"; // ✅ 자동으로 목록 페이지로 이동
+      })
+      .catch(error => {
+        console.error('에러:', error);
+        alert("등록 중 오류 발생!");
+      });
+    }
+</script>
+</body>
+</html>
