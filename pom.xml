@@ -83,5 +83,27 @@
             <artifactId>mybatis-spring</artifactId>
             <version>2.0.7</version>
         </dependency>
+
+        <!-- ✅ Spring Data JPA -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.7.10</version>
+        </dependency>
+
+        <!-- ✅ Hibernate JPA 구현체 -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.6.15.Final</version>
+        </dependency>
+
+        <!-- ✅ Lombok (VO, Entity 등 편리하게 작성) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>
