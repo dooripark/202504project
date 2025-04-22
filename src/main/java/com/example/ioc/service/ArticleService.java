@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class ArticleService {
 
+    private final ArticleDao articleDao;
+
     @Autowired
-    private ArticleDao articleDao;
+    public ArticleService(ArticleDao articleDao) {
+        this.articleDao = articleDao;
+    }
 
     public List<Article> getAllArticles() {
         return articleDao.findAll();

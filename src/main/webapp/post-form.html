@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>새 글 등록</title>
+</head>
+<body>
+<h1>📮 새 글 등록하기</h1>
+
+<form id="postForm">
+  <label for="title">제목:</label><br>
+  <input type="text" id="title" name="title" required><br><br>
+
+  <label for="content">내용:</label><br>
+  <textarea id="content" name="content" rows="5" cols="40" required></textarea><br><br>
+
+  <button type="submit">등록</button>
+</form>
+
+<div id="result" style="margin-top:20px; color: green;"></div>
+
+<script>
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const postData = {
+                title: document.getElementById('title').value,
+                content: document.getElementById('content').value
+            };
+
+            fetch('/api/posts_v2', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(postData)
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('서버 오류 발생');
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('result').innerText = '✅ 등록 완료: ' + JSON.stringify(data);
+                document.getElementById('postForm').reset();
+            })
+            .catch(err => {
+                document.getElementById('result').innerText = '❌ 등록 실패: ' + err;
+            });
+        });
+    </script>
+</body>
+</html>

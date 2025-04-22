@@ -4,16 +4,17 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context   http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/jdbc      http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-        http://mybatis.org/schema/mybatis-spring        http://mybatis.org/schema/mybatis-spring.xsd">
+        http://mybatis.org/schema/mybatis-spring        http://mybatis.org/schema/mybatis-spring.xsd
+        http://www.springframework.org/schema/data/jpa  http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/tx        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!-- component-scan -->
-    <context:component-scan base-package="com.example.ioc"/>
-
-    <!-- DataSource -->
+    <!-- DataSource 설정 -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/boarddb"/>
@@ -21,7 +22,7 @@
         <property name="password" value="tmvkdlejaos12@"/>
     </bean>
 
-    <!-- JdbcTemplate -->
+    <!-- JdbcTemplate 설정 -->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
     </bean>
@@ -31,20 +32,48 @@
         <constructor-arg ref="jdbcTemplate" />
     </bean>
 
-    <!-- ✅ MyBatis SqlSessionFactory 설정 -->
+    <!-- MyBatis SqlSessionFactory 설정 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
 
-    <!-- ✅ SqlSessionTemplate 설정 (MyBatis 핵심!) -->
+    <!-- SqlSessionTemplate 설정 -->
     <bean class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactory"/>
     </bean>
 
-    <!-- ✅ Mapper 스캔 (선택사항, Mapper Interface 쓸 때만) -->
+    <!-- Mapper 스캔 설정 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.example.ioc.dao"/>
     </bean>
+
+    <!-- JPA EntityManager 설정 -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="com.example.ioc.domain, com.example.ioc.entity" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- ✅ JPA 트랜잭션 매니저 설정 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!-- ✅ 트랜잭션 어노테이션 활성화 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- ✅ JPA Repository 활성화 -->
+    <jpa:repositories base-package="com.example.ioc.repository" />
 
 </beans>

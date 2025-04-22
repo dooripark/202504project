@@ -9,7 +9,7 @@
     <!-- 공통 설정: root-context -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/root-context.xml</param-value>
+        <param-value>/WEB-INF/classes/spring/root-context.xml</param-value> <!-- 실제 경로 -->
     </context-param>
 
     <!-- Spring 컨텍스트 로딩 -->
