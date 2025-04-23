@@ -4,20 +4,20 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class Post {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String content;
+    private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member; // 🔥 양방향 매핑용 필드 추가!
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Post> posts = new ArrayList<>();
 }
