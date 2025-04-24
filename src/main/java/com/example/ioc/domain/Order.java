@@ -5,26 +5,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
+@Table(name = "orders") // ✅ 테이블명 변경!
 @Getter @Setter
 @NoArgsConstructor
-public class Post {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String content;
+    private String itemName;
+
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
-    // 🔥 댓글 연관관계 (Post : Reply = 1:N)
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Reply> replies = new ArrayList<>();
 }

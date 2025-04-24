@@ -24,6 +24,10 @@
     <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
+    <!-- UTF-8 인코딩 강제 적용 -->
+    <Parameter name="URIEncoding" value="UTF-8" />
+    <Parameter name="responseEncoding" value="UTF-8" />
+
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
     <Manager pathname="" />
