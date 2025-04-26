@@ -4,6 +4,7 @@ import com.example.ioc.domain.Member;
 import com.example.ioc.domain.Order;
 import com.example.ioc.domain.Post;
 import com.example.ioc.domain.Reply;
+import com.example.ioc.dto.MemberDto; // ✨ 추가: MemberDto import
 import com.example.ioc.repository.OrderRepository;
 import com.example.ioc.repository.PostRepository;
 import com.example.ioc.repository.ReplyRepository;
@@ -36,7 +37,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    // ✅ 1. 테스트 데이터 삽입용 API
+    // ✅ 1. 테스트 데이터 삽입용 API (변경 없음)
     @GetMapping(value = "/test", produces = "text/plain; charset=UTF-8")
     public String insertTestData() {
         try {
@@ -92,14 +93,13 @@ public class MemberController {
         }
     }
 
-
-    // ✅ 2. 전체 회원 조회
+    // ✅ 2. 전체 회원 조회 (수정)
     @GetMapping
-    public List<Member> getAllMembers() {
-        return memberService.findAll();
+    public List<MemberDto> getAllMembers() { // ✨ 수정: 반환 타입을 MemberDto로 변경
+        return memberService.findAll(); // ✨ 수정: memberService.findAll()이 DTO 리스트를 반환
     }
 
-    // ✅ 3. 단일 회원 정보 상세 출력
+    // ✅ 3. 단일 회원 정보 상세 출력 (변경 없음)
     @Transactional
     @GetMapping("/{id}")
     public ResponseEntity<String> getMemberDetails(@PathVariable Long id) {

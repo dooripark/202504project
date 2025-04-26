@@ -4,11 +4,13 @@ import com.example.ioc.domain.Member;
 import com.example.ioc.domain.Order;
 import com.example.ioc.domain.Post;
 import com.example.ioc.domain.Reply;
+import com.example.ioc.dto.MemberDto; // ✨ 추가: DTO import
 import com.example.ioc.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors; // ✨ 추가: stream 사용하려고 import
 
 @Service
 public class MemberService {
@@ -19,10 +21,15 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public List<Member> findAll() {
-        return memberRepository.findAll();
+    // ✨ 수정: 엔티티 직접 반환 대신 DTO로 반환
+    public List<MemberDto> findAll() {
+        List<Member> members = memberRepository.findAll();
+        return members.stream()
+                .map(member -> new MemberDto(member.getId(), member.getUsername()))
+                .collect(Collectors.toList());
     }
 
+    // 그대로 유지 (ID로 조회하는 건 내부 확인용으로 남길게!)
     public Member findById(Long id) {
         Member member = memberRepository.findById(id).orElse(null);
 
