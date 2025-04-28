@@ -1,7 +1,7 @@
 package com.example.ioc.controller;
 
 import com.example.ioc.service.RestBoardService;
-import com.example.ioc.vo.RestBoard;
+import com.example.ioc.entity.RestBoard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +15,13 @@ public class RestBoardController {
     @Autowired
     private RestBoardService restBoardService;
 
+    // 전체 게시글 조회
     @GetMapping
     public List<RestBoard> listBoards() {
         return restBoardService.getAllBoards();
     }
 
+    // 게시글 등록
     @PostMapping
     public ResponseEntity<String> createBoard(@RequestBody RestBoard board) {
         restBoardService.addBoard(board);
