@@ -1,25 +1,31 @@
 package com.example.ioc.service;
 
+import com.example.ioc.dto.RestBoardDto;
 import com.example.ioc.entity.RestBoard;
+import com.example.ioc.mapper.RestBoardMapper;
 import com.example.ioc.repository.RestBoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RestBoardService {
 
-    @Autowired
-    private RestBoardRepository restBoardRepository;
+    private final RestBoardRepository restBoardRepository;
 
-    // 전체 게시글 조회
-    public List<RestBoard> getAllBoards() {
-        return restBoardRepository.findAll();
+    public RestBoardService(RestBoardRepository restBoardRepository) {
+        this.restBoardRepository = restBoardRepository;
     }
 
-    // 게시글 추가
-    public void addBoard(RestBoard board) {
-        restBoardRepository.save(board);
+    public List<RestBoardDto> getAllBoards() {
+        return restBoardRepository.findAll().stream()
+                .map(RestBoardMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public void addBoard(RestBoardDto boardDto) {
+        RestBoard entity = RestBoardMapper.toEntity(boardDto);
+        restBoardRepository.save(entity);
     }
 }

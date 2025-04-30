@@ -1,8 +1,7 @@
 package com.example.ioc.controller;
 
+import com.example.ioc.dto.RestBoardDto;
 import com.example.ioc.service.RestBoardService;
-import com.example.ioc.entity.RestBoard;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,19 +11,20 @@ import java.util.List;
 @RequestMapping("/api/restboard")
 public class RestBoardController {
 
-    @Autowired
-    private RestBoardService restBoardService;
+    private final RestBoardService restBoardService;
 
-    // 전체 게시글 조회
-    @GetMapping
-    public List<RestBoard> listBoards() {
-        return restBoardService.getAllBoards();
+    public RestBoardController(RestBoardService restBoardService) {
+        this.restBoardService = restBoardService;
     }
 
-    // 게시글 등록
+    @GetMapping
+    public ResponseEntity<List<RestBoardDto>> listBoards() {
+        return ResponseEntity.ok(restBoardService.getAllBoards());
+    }
+
     @PostMapping
-    public ResponseEntity<String> createBoard(@RequestBody RestBoard board) {
-        restBoardService.addBoard(board);
+    public ResponseEntity<String> createBoard(@RequestBody RestBoardDto boardDto) {
+        restBoardService.addBoard(boardDto);
         return ResponseEntity
                 .ok()
                 .header("Content-Type", "text/plain; charset=UTF-8")
