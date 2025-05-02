@@ -1,15 +1,16 @@
 package com.example.ioc.controller;
 
+import com.example.ioc.common.ApiResponse;
 import com.example.ioc.domain.Member;
 import com.example.ioc.domain.Order;
 import com.example.ioc.domain.Post;
 import com.example.ioc.domain.Reply;
-import com.example.ioc.dto.MemberDto; // ✨ 추가: MemberDto import
+import com.example.ioc.dto.MemberDto;
 import com.example.ioc.repository.OrderRepository;
 import com.example.ioc.repository.PostRepository;
 import com.example.ioc.repository.ReplyRepository;
 import com.example.ioc.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,38 +21,27 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/members")
+@RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
+    private final PostRepository postRepository;
+    private final ReplyRepository replyRepository;
+    private final OrderRepository orderRepository;
 
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private ReplyRepository replyRepository;
-
-    @Autowired
-    private OrderRepository orderRepository;
-
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
-    // ✅ 1. 테스트 데이터 삽입용 API (변경 없음)
     @GetMapping(value = "/test", produces = "text/plain; charset=UTF-8")
     public String insertTestData() {
         try {
             Member member = new Member();
             member.setUsername("dooripark");
 
-            // 🔥 게시글 1
             Post post1 = new Post();
             post1.setTitle("첫 번째 게시글");
             post1.setContent("내용1");
 
             Reply reply1 = new Reply();
             reply1.setContent("첫 번째 댓글");
-            reply1.setPost(post1); // 댓글 → 게시글 연결
+            reply1.setPost(post1);
 
             Reply reply2 = new Reply();
             reply2.setContent("두 번째 댓글");
@@ -59,31 +49,27 @@ public class MemberController {
 
             post1.getReplies().add(reply1);
             post1.getReplies().add(reply2);
-            post1.setMember(member); // 게시글 → 멤버 연결
-            member.getPosts().add(post1); // 멤버 → 게시글 추가
+            post1.setMember(member);
+            member.getPosts().add(post1);
 
-            // 🔥 게시글 2 (댓글 없음)
             Post post2 = new Post();
             post2.setTitle("두 번째 게시글");
             post2.setContent("내용2");
             post2.setMember(member);
             member.getPosts().add(post2);
 
-            // 🔥 주문 1
             Order order1 = new Order();
             order1.setItemName("액상 A");
             order1.setQuantity(2);
             order1.setMember(member);
             member.getOrders().add(order1);
 
-            // 🔥 주문 2
             Order order2 = new Order();
             order2.setItemName("액상 B");
             order2.setQuantity(1);
             order2.setMember(member);
             member.getOrders().add(order2);
 
-            // 🔥 최종 저장 (연관관계 모두 연결된 상태로 save)
             memberService.save(member);
 
             return "테스트 데이터 삽입 완료!";
@@ -93,13 +79,12 @@ public class MemberController {
         }
     }
 
-    // ✅ 2. 전체 회원 조회 (수정)
     @GetMapping
-    public List<MemberDto> getAllMembers() { // ✨ 수정: 반환 타입을 MemberDto로 변경
-        return memberService.findAll(); // ✨ 수정: memberService.findAll()이 DTO 리스트를 반환
+    public ResponseEntity<ApiResponse<List<MemberDto>>> getAllMembers() {
+        List<MemberDto> members = memberService.findAll();
+        return ResponseEntity.ok(ApiResponse.success(members));
     }
 
-    // ✅ 3. 단일 회원 정보 상세 출력 (변경 없음)
     @Transactional
     @GetMapping("/{id}")
     public ResponseEntity<String> getMemberDetails(@PathVariable Long id) {
@@ -109,7 +94,6 @@ public class MemberController {
                     .body("<pre>회원이 존재하지 않습니다.</pre>");
         }
 
-        // 🔥 Lazy orders 강제 초기화
         member.getOrders().size();
 
         StringBuilder sb = new StringBuilder();

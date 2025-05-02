@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor // ✅ 테스트 JSON 직렬화를 위해 꼭 필요함!
+@NoArgsConstructor
 public class MemberDto {
 
     private Long id;

@@ -20,7 +20,7 @@
     </properties>
 
     <dependencies>
-        <!-- ✅ Spring MVC + JSON + Embedded Tomcat -->
+        <!-- ✅ Spring MVC + JSON -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -46,57 +46,71 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ JSTL (JSP에서 사용) -->
+        <!-- ✅ JSP / JSTL -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
-
-        <!-- ✅ JSP 실행을 위한 Jasper 엔진 -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
-
-        <!-- ✅ Servlet API (JSP와 함께 사용 시 필요) -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ Logback (명시적 설정) -->
+        <!-- ✅ Logback -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
 
-        <!-- ✅ 테스트용 (JUnit, MockMvc, AssertJ 등 포함) -->
+        <!-- ✅ Spring Boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ Mockito Core -->
+        <!-- ✅ Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- ✅ Mockito JUnit Jupiter (MockitoExtension 지원) -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ JUnit Jupiter API (기본 @Test 지원) -->
+        <!-- ✅ JUnit -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- ✅ DBCP2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
+        <!-- ✅ MyBatis core -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>2.0.7</version>
         </dependency>
     </dependencies>
 
