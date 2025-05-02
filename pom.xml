@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>ioc</artifactId> <!-- 기존 이름 유지 -->
-    <version>1.0.0</version> <!-- 버전 형식 살짝 정리 -->
+    <artifactId>ioc</artifactId>
+    <version>1.0.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.15</version> <!-- LTS 버전 -->
+        <version>2.7.15</version>
         <relativePath/>
     </parent>
 
@@ -20,13 +20,13 @@
     </properties>
 
     <dependencies>
-        <!-- ✅ Spring Boot Starter Web (MVC + JSON + 톰캣 기본 내장) -->
+        <!-- ✅ Spring MVC + JSON + Embedded Tomcat -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- ✅ Spring Boot Starter Data JPA -->
+        <!-- ✅ Spring Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -43,28 +43,61 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ JSTL (만약 JSP로 화면 출력 유지할거면 추가) -->
+        <!-- ✅ JSTL (JSP에서 사용) -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
 
-        <!-- ✅ Logback (기본 포함이지만 명시적으로 추가 가능) -->
+        <!-- ✅ JSP 실행을 위한 Jasper 엔진 -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+
+        <!-- ✅ Servlet API (JSP와 함께 사용 시 필요) -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ✅ Logback (명시적 설정) -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
 
-        <!-- ✅ 테스트용 (JUnit 포함) -->
+        <!-- ✅ 테스트용 (JUnit, MockMvc, AssertJ 등 포함) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!-- ✅ Mockito Core -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ✅ Mockito JUnit Jupiter (MockitoExtension 지원) -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ✅ JUnit Jupiter API (기본 @Test 지원) -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -75,5 +108,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
